@@ -15,6 +15,7 @@ public class Server {
         staticFiles.location("/public");
         Gson gson = new Gson();
         UserController userController = new UserController();
+        TodoController todoController = new TodoController();
 
         // Simple example route
         get("/hello", (req, res) -> "Hello World");
@@ -48,7 +49,14 @@ public class Server {
         // List todos
         get("api/todos", (req, res) -> {
             res.type("application/json");
-            return wrapInJson("todos", gson.toJsonTree(TodoController.ListTodos(req.queryMap().toMap())));
+            return wrapInJson("todos", gson.toJsonTree(todoController.listTodos(req.queryMap().toMap())));
+        });
+
+        // List single todo by _id
+        get("api/todos/:id", (req, res) -> {
+            res.type ("application/json");
+            String id = req.params("id");
+            return gson.toJson(todoController.getTodo(id));
         });
     }
 

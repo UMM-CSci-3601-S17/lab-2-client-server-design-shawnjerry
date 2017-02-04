@@ -18,18 +18,21 @@ public class TodoController {
     }
 
     // List todos
-    public Todo[] ListTodos(Map<String, String[]> queryParams) {
+    public Todo[] listTodos(Map<String, String[]> queryParams) {
         Todo[] filteredTodos = todos;
 
-        // Specific _id
-//        if(queryParams.containsKey("_id")) {
-//            String id = queryParams.get("_id")[0];
-//            filteredTodos = pickOutId(filteredTodos, id);
-//        }
-
-        // Limit to a number of todos
+        //Limit to a number of todos
+        if(queryParams.containsKey("limit")) {
+            int limit = Integer.parseInt(queryParams.get("limit")[0]);
+            filteredTodos = limitTodosByNum(filteredTodos, limit);
+        }
 
         return filteredTodos;
+    }
+
+    // Limit Todos by number
+    public Todo[] limitTodosByNum(Todo[] filteredTodos, int limit) {
+        return Arrays.stream(filteredTodos, 0, limit).toArray(Todo[]::new);
     }
 
     // Get a single todo
