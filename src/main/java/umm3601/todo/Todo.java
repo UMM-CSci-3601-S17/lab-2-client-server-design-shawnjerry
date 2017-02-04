@@ -1,8 +1,11 @@
 package umm3601.todo;
 
-/**
- * Created by chen4709 on 2/2/17.
- */
-public class Todo {
 
+
+public class Todo {
+    String _id;
+    String name;
+    boolean status;
+    String body;
+    String category;
 }
