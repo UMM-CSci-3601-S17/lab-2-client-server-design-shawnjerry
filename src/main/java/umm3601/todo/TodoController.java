@@ -23,11 +23,7 @@ public class TodoController {
     public Todo[] listTodos(Map<String, String[]> queryParams) {
         Todo[] filteredTodos = todos;
 
-        //Limit to a number of todos
-        if(queryParams.containsKey("limit")) {
-            int limit = Integer.parseInt(queryParams.get("limit")[0]);
-            filteredTodos = limitTodosByNum(filteredTodos, limit);
-        }
+
 
         //filters by "status"
         if(queryParams.containsKey("status")){
@@ -77,9 +73,15 @@ public class TodoController {
 
             //filteredTodos = sortByCategory(filteredTodos, orderBy);
         }
+        //Limit to a number of todos
+        if(queryParams.containsKey("limit")) {
+            int limit = Integer.parseInt(queryParams.get("limit")[0]);
+            filteredTodos = limitTodosByNum(filteredTodos, limit);
+        }
 
 
-            return filteredTodos;
+
+        return filteredTodos;
     }
 
     // Limit Todos by number
