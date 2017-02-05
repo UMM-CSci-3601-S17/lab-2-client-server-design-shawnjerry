@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 
+
 public class TodoController {
 
     private Todo[] todos;
@@ -34,45 +35,112 @@ public class TodoController {
             String True = "complete";
             String False = "incomplete";
             if(status.equals(True)){
-               filteredTodos = sortByStatus(filteredTodos, true);
+               filteredTodos = filterByStatus(filteredTodos, true);
             }else if(status.equals(False)){
-               filteredTodos = sortByStatus(filteredTodos, false);
+               filteredTodos = filterByStatus(filteredTodos, false);
             }
         }
 
         // filter by "contains"
         if(queryParams.containsKey("contains")) {
             String contains =queryParams.get("contains")[0];
+            filteredTodos = filterByContains(filteredTodos, contains);
 
         }
 
-        return filteredTodos;
+        //filter by owner
+        if(queryParams.containsKey("owner")){
+            String owner = queryParams.get("owner")[0];
+            filteredTodos = filterByOwner(filteredTodos, owner);
+        }
+        //filter by category
+        if(queryParams.containsKey("category")) {
+            String category = queryParams.get("category")[0];
+            filteredTodos = filterByCategory(filteredTodos, category);
+        }
+        //sorting
+        if(queryParams.containsKey("orderBy")) {
+            String orderBy = queryParams.get("orderBy")[0];
+            if(orderBy.equals("owner")){
+                filteredTodos = sortByOwner(filteredTodos);
+            }
+            if(orderBy.equals("status")){
+                filteredTodos = sortByStatus(filteredTodos);
+            }
+            if(orderBy.equals("body")){
+                filteredTodos = sortByBody(filteredTodos);
+            }
+            if(orderBy.equals("category")){
+                filteredTodos = sortByCategory(filteredTodos);
+            }
+
+
+            //filteredTodos = sortByCategory(filteredTodos, orderBy);
+        }
+
+
+            return filteredTodos;
     }
 
     // Limit Todos by number
     public Todo[] limitTodosByNum(Todo[] filteredTodos, int limit) {
-        return Arrays.stream(filteredTodos, 0, limit).toArray(Todo[]::new);
+       return Arrays.stream(filteredTodos, 0, limit).toArray(Todo[]::new);
+
     }
 
-    // Sort by status
-    public Todo[] sortByStatus(Todo[] filteredTodos, boolean status){
+    //filter by owner method
+    public Todo[] filterByOwner(Todo[] filteredTodos, String owner){
+
+        return Arrays.stream(filteredTodos).filter(x -> x.owner.equals(owner)).toArray(Todo[]::new);
+    }
+
+    // filter by category
+
+    public Todo[] filterByCategory(Todo[] filteredTodos, String category){
+        return Arrays.stream(filteredTodos).filter(x -> x.category.equals(category)).toArray(Todo[]::new);
+    }
+
+    // filter by status
+    public Todo[] filterByStatus(Todo[] filteredTodos, boolean status){
         return Arrays.stream(filteredTodos).filter(x -> x.status == status).toArray(Todo[]::new);
     }
 
-    // Sort by contains
-//    public Todo[] sortByContains(Todo[] filteredTodos, String contains) {
-//        Todo[] todoCon;
-//
-//        return
-//    }
-
-    // find contains in one todo's body
-    public boolean checkBody(Todo todo, String contains) {
-        CharSequence cs = contains;
-        boolean bo;
-        bo = todo.body.contains(cs);
-        return bo;
+    // filter by contains
+    public Todo[] filterByContains(Todo[] filteredTodos, String contains) {
+        return Arrays.stream(filteredTodos).filter(x -> x.body.contains(contains)).toArray(Todo[]::new);
     }
+    //sort by owner
+    public Todo[] sortByOwner(Todo[] filteredTodos){
+      Todo[] result = new Todo[filteredTodos.length];
+      result= filteredTodos.clone();
+
+     Arrays.sort(result, (Todo a, Todo b)-> a.owner.compareTo(b.owner));
+      return result;
+    }
+
+    public Todo[] sortByCategory(Todo[] filteredTodos){
+        Todo[] result = new Todo[filteredTodos.length];
+        result= filteredTodos.clone();
+
+        Arrays.sort(result, (Todo a, Todo b)-> a.category.compareTo(b.category));
+        return result;
+    }
+
+    public Todo[] sortByBody(Todo[] filteredTodos){
+        Todo[] result = new Todo[filteredTodos.length];
+        result= filteredTodos.clone();
+
+        Arrays.sort(result, (Todo a, Todo b)-> a.body.compareTo(b.body));
+        return result;
+    }
+    public Todo[] sortByStatus(Todo[] filteredTodos){
+        Todo[] result = new Todo[filteredTodos.length];
+        result= filteredTodos.clone();
+
+        Arrays.sort(result, (Todo a, Todo b)-> String.valueOf(a.status).compareTo(String.valueOf(b.status)));
+        return result;
+    }
+
 
     // Get a single todo
     public Todo getTodo(String id) {
