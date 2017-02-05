@@ -11,14 +11,7 @@ window.onload = function() {
 
 }
 
-function limitBy() {
-    var integer= prompt("Please enter your limit", "");
 
-    if (limit != null) {
-        var element = document.getElementById('lim');
-        element.addEventListener("click", limitByInt, true);
-    }
-}
 
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
@@ -60,12 +53,7 @@ var getAllTodos = function() {
     });
 }
 
-var limitByInt = function() {
-    var HttpThingy = new HttpClient();
-    HttpThingy.get("/api/todos?limit=integer", function(returned_json){
-        document.getElementById('jsonDump').innerHTML = returned_json;
-    });
-}
+
 
 var sortByOwner = function() {
     var HttpThingy = new HttpClient();

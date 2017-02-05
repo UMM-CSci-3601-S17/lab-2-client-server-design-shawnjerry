@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todos</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="javascript/todo.js"> </script>
+</head>
+<body>
+    <button type="button" id="getAll" class="dropbtn">Get All Todos</button>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Sort by</button>
+        <div id="myDropdown" class="dropdown-content">
+            <button type="button" id="SortByOwner" class="button">Owner</button>
+            <button type="button" id="SortByStatus" class="button">Status</button>
+            <button type="button" id="SortByBody" class="button"> Body</button>
+            <button type="button" id="SortByCategory" class="button">Category</button>
+
+        </div>
+    </div>
+
+
+<hr/>
+
+<div id="jsonDump" style="margin-top:20px"> Json will go here </div>
+
+
+</body>
+</html>
