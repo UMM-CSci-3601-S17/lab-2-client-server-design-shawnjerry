@@ -8,6 +8,9 @@ window.onload = function() {
     var element = document.getElementById('getAll');
     element.addEventListener("click", getAllTodos, true);
 
+    var element = document.getElementById('Submit');
+    element.addEventListener("click", filtering, true);
+
 
 }
 
@@ -44,6 +47,25 @@ window.onclick = function(event) {
             }
         }
     }
+}
+
+
+var filtering = function(){
+    var link;
+    var limit = document.getElementById('Limit').value;
+
+
+
+
+    if(limit != ""){
+       var link="/api/todos?limit=";
+   }
+
+
+    var HttpThingy = new HttpClient();
+    HttpThingy.get(url+limit, function(returned_json){
+        document.getElementById('jsonDump').innerHTML = returned_json;
+    });
 }
 
 var getAllTodos = function() {

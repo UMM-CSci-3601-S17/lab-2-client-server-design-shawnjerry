@@ -7,6 +7,10 @@
     <script type="text/javascript" src="javascript/todo.js"> </script>
 </head>
 <body>
+<a href="/">HOME</a>
+
+
+
     <button type="button" id="getAll" class="dropbtn">Get All Todos</button>
     <div class="dropdown">
         <button onclick="myFunction()" class="dropbtn">Sort by</button>
@@ -16,9 +20,22 @@
             <button type="button" id="SortByBody" class="button"> Body</button>
             <button type="button" id="SortByCategory" class="button">Category</button>
 
+
         </div>
     </div>
+<form>
+    status
+    <input type="text" id="Status" name="status"  >
+    limit
+    <input type="text" id="Limit" name="limit"  ><br>
+    owner
+    <input type="text" id="Owner" name="owner" >
+    category
+    <input type="text" id="Category" name="category" >
 
+    <button type="button" id="Submit" class="button">Submit</button>
+
+</form>
 
 <hr/>
 
