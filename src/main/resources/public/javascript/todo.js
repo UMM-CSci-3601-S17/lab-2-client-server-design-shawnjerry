@@ -51,19 +51,67 @@ window.onclick = function(event) {
 
 
 var filtering = function(){
-    var link;
+    var result;
+    var tempLink;
     var limit = document.getElementById('Limit').value;
+    var status = document.getElementById('Status').value;
+    var owner = document.getElementById('Owner').value;
+    var category = document.getElementById('Category').value;
+    var body = document.getElementById('Body').value;
 
 
+    if(status != "" ){
+        if(result == null){
+            tempLink = "api/todos?status=";
+            result = tempLink + status;
+        }else{
+            result += "&status=" + status;
+        }
+    }
 
+    if(body != "" ){
+        if(result == null){
+            tempLink = "api/todos?body=";
+            result = tempLink + body;
+        }else{
+            result += "&body=" + body;
+        }
+    }
 
+    if(category != "" ){
+        if(result == null){
+            tempLink = "api/todos?category=";
+            result = tempLink + category;
+        }else{
+            result += "&category=" + category;
+        }
+    }
+
+    if(owner != "" ){
+        if(result == null){
+            tempLink = "api/todos?owner=";
+            result = tempLink + owner;
+        }else{
+            result += "&owner=" + owner;
+        }
+    }
+
+    // is not going to limit if a limit number is greater than available list of todos (because they are already filtered)
     if(limit != ""){
-       var link="/api/todos?limit=";
+        if(result == null){
+            tempLink = "/api/todos?limit=";
+            result = tempLink + limit;
+        }else{
+            result += "&limit=" + limit;
+        }
    }
 
+   if(limit == ""&& status=="" && body=="" && category=="" && owner==""){
+        result = "/api/todos";
+   }
 
     var HttpThingy = new HttpClient();
-    HttpThingy.get(url+limit, function(returned_json){
+    HttpThingy.get(result, function(returned_json){
         document.getElementById('jsonDump').innerHTML = returned_json;
     });
 }
