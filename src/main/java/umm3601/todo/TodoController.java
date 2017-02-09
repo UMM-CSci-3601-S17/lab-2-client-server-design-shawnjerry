@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Comparator;
 
 
 public class TodoController {
@@ -147,5 +148,14 @@ public class TodoController {
     // Get a single todo
     public Todo getTodo(String id) {
         return Arrays.stream(todos).filter(x -> x._id.equals(id)).findFirst().orElse(null);
+    }
+
+    public boolean isSorted(Todo[] todos){
+    for(int i = 1; i < todos.length; i++){
+       if( todos[i-1].owner.compareTo(todos[i].owner) >0){
+           return false;
+       }
+    }
+        return true;
     }
 }

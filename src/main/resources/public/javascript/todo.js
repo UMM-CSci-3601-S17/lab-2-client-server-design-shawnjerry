@@ -114,36 +114,50 @@ var filtering = function(){
     HttpThingy.get(result, function(returned_json){
         document.getElementById('jsonDump').innerHTML = returned_json;
     });
+
 }
 
+
+
+
+
+
 var getAllTodos = function() {
+    var link = "/api/todos";
     var HttpThingy = new HttpClient();
-    HttpThingy.get("/api/todos", function(returned_json){
+    HttpThingy.get(link, function(returned_json){
         document.getElementById('jsonDump').innerHTML = returned_json;
     });
+    return link;
 }
 
 
 
 var sortByOwner = function() {
+    var link = "/api/todos?orderBy=owner";
     var HttpThingy = new HttpClient();
-    HttpThingy.get("/api/todos?orderBy=owner", function(returned_json){
+    HttpThingy.get(link, function(returned_json){
         document.getElementById('jsonDump').innerHTML = returned_json;
     });
+    return link;
 }
 
 var sortByStatus = function() {
+    var link = "/api/todos?orderBy=status";
     var HttpThingy = new HttpClient();
-    HttpThingy.get("/api/todos?orderBy=status", function(returned_json){
+    HttpThingy.get(link, function(returned_json){
         document.getElementById('jsonDump').innerHTML = returned_json;
     });
+    return link;
 }
 
 var sortByCategory = function() {
+    var link = "/api/todos?orderBy=category";
     var HttpThingy = new HttpClient();
-    HttpThingy.get("/api/todos?orderBy=category", function(returned_json){
+    HttpThingy.get(link, function(returned_json){
         document.getElementById('jsonDump').innerHTML = returned_json;
     });
+    return link;
 }
 
 var sortByBody = function() {
